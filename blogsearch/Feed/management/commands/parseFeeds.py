@@ -1,16 +1,34 @@
 from Feed.models import Feed
 from django.core.management.base import BaseCommand, CommandError
-from parsers.FacebookParser import FacebookParser
+from parsers.baseParser import FeedParser, SummaryAsContentParser, ContentAsDescriptionParser
 from parsers.SpotifyParser import SpotifyParser
-from parsers.NetflixParser import NetflixParser
-from parsers.AirBnBParser import AirBnBParser
-
+from parsers.RiotGamesParser import RiotGamesParser
+from parsers.UberParser import UberParser
 
 FEEDS = {
-    'Facebook': FacebookParser,
+    'Facebook': FeedParser,
     'Spotify': SpotifyParser,
-    'Netflix': NetflixParser,
-    'AirBnB': AirBnBParser
+    'Netflix': FeedParser,
+    'AirBnB': ContentAsDescriptionParser,
+    'Asana': FeedParser,
+    'BBC': ContentAsDescriptionParser,
+    'CloudFlare': FeedParser,
+    'Dropbox': ContentAsDescriptionParser,
+    'GitHub': FeedParser,
+    'Google Security': ContentAsDescriptionParser,
+    'Google Research': ContentAsDescriptionParser,
+    'Grab': SummaryAsContentParser,
+    'Instagram': ContentAsDescriptionParser,
+    'Intuit': ContentAsDescriptionParser,
+    'Lyft': ContentAsDescriptionParser,
+    'Medium': ContentAsDescriptionParser,
+    'New York Times': ContentAsDescriptionParser,
+    'Pinterest': ContentAsDescriptionParser,
+    'Riot Games': RiotGamesParser,
+    'SkyScanner': ContentAsDescriptionParser,
+    'SoundCloud': ContentAsDescriptionParser,
+    'Twitch': ContentAsDescriptionParser,
+    'Uber': UberParser
 }
 
 class Command(BaseCommand):
@@ -19,5 +37,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for name, parser in FEEDS.items():
             feed = Feed.objects.get(name=name)
-            runner = parser(feed.id)
-            runner.parse_feed()
+            if feed:
+                runner = parser(feed.id)
+                runner.parse_feed()

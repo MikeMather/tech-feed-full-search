@@ -42,10 +42,29 @@ class FeedParser(ABC):
             content = self.get_content(entry)
             description = self.get_description(entry)
 
-            post, created = Post.objects.update_or_create(feed=self.feed, 
-                                        url=link,
-                                        title=title,
-                                        description=description,
-                                        content=content)
-            if created:
+            existing_post = Post.objects.get(url=link)
+            if not existing_post:
+                post = Post.objects.create(feed=self.feed, 
+                                            url=link,
+                                            title=title,
+                                            description=description,
+                                            content=content)
                 print('New post: ', post.id)
+
+
+class SummaryAsContentParser(FeedParser):
+
+    def get_content(self, entry):
+        soup = BeautifulSoup(entry.summary, features='html.parser')
+        content = soup.get_text()
+        return content
+
+
+class ContentAsDescriptionParser(FeedParser):
+    
+    def get_description(self, entry):
+        soup = BeautifulSoup(entry.content[0].value, features='html.parser')
+        description = soup.get_text()
+        if len(description) > 250:
+            description = description[:250] + '...'
+        return description

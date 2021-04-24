@@ -1,1 +1,2 @@
 web: gunicorn blogsearch.wsgi
+release: python manage.py migrate
