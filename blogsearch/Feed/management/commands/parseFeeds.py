@@ -1,9 +1,11 @@
+import sys
 from Feed.models import Feed
 from django.core.management.base import BaseCommand, CommandError
 from parsers.baseParser import FeedParser, SummaryAsContentParser, ContentAsDescriptionParser
 from parsers.SpotifyParser import SpotifyParser
 from parsers.RiotGamesParser import RiotGamesParser
 from parsers.UberParser import UberParser
+
 
 FEEDS = {
     'Facebook': FeedParser,
@@ -40,6 +42,6 @@ class Command(BaseCommand):
                 feed = Feed.objects.get(name=name)
                 runner = parser(feed.id)
                 runner.parse_feed()
-            except Error as e:
-                print(e)
+            except:
+                print(sys.exc_info()[0])
                 print(f'Error parsing {name} feed')
