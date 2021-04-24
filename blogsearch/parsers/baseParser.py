@@ -42,7 +42,7 @@ class FeedParser(ABC):
             content = self.get_content(entry)
             description = self.get_description(entry)
 
-            existing_post = Post.objects.get(url=link)
+            existing_post = Post.objects.filter(url=link).count()
             if not existing_post:
                 post = Post.objects.create(feed=self.feed, 
                                             url=link,
