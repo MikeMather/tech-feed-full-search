@@ -36,9 +36,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for name, parser in FEEDS.items():
-            feed = Feed.objects.get(name=name)
             try:
+                feed = Feed.objects.get(name=name)
                 runner = parser(feed.id)
                 runner.parse_feed()
             except Error as e:
                 print(e)
+                print(f'Error parsing {name} feed')
