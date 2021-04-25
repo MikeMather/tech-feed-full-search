@@ -30,7 +30,8 @@ FEEDS = {
     'SkyScanner': ContentAsDescriptionParser,
     'SoundCloud': ContentAsDescriptionParser,
     'Twitch': ContentAsDescriptionParser,
-    'Uber': UberParser
+    'Uber': UberParser,
+    'Asana': FeedParser
 }
 
 class Command(BaseCommand):

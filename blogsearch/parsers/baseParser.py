@@ -35,7 +35,7 @@ class FeedParser(ABC):
 
     def parse_feed(self):
         for entry in self.entries:
-            
+            print(f'Trying entry with ID {entry.id}')
             # Get Post details
             link = self.get_link(entry)
             title = self.get_title(entry)
