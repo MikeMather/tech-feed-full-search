@@ -42,6 +42,6 @@ class Command(BaseCommand):
                 feed = Feed.objects.get(name=name)
                 runner = parser(feed.id)
                 runner.parse_feed()
-            except:
-                print(sys.exc_info()[0])
+            except Exception as e:
+                print(e)
                 print(f'Error parsing {name} feed')
