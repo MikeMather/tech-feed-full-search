@@ -30,7 +30,6 @@ FEEDS = {
     'SkyScanner': ContentAsDescriptionParser,
     'SoundCloud': ContentAsDescriptionParser,
     'Twitch': ContentAsDescriptionParser,
-    'Uber': UberParser,
     'Asana': FeedParser
 }
 

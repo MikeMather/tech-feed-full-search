@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Feed.apps.FeedConfig',
     'Post.apps.PostConfig',
+    'Search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
