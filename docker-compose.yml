@@ -1,21 +1,13 @@
 version: "3.9"
    
 services:
-  nginx:
-    build: nginx/
-    ports:
-      - 1337:80
-    depends_on:
-      - web
-    volumes:
-      - static_volume:/staticfiles
   web:
     build: blogsearch/
     volumes:
       - ./blogsearch:/app
       - static_volume:/app/staticfiles
-    expose:
-      - 8000
+    ports:
+      - 8000:8000
     depends_on:
       - db
     command: ['bash', 'startup.sh']
