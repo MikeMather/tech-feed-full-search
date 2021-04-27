@@ -4,8 +4,6 @@ from django.core.management.base import BaseCommand, CommandError
 from parsers.baseParser import FeedParser, SummaryAsContentParser, ContentAsDescriptionParser
 from parsers.SpotifyParser import SpotifyParser
 from parsers.RiotGamesParser import RiotGamesParser
-from parsers.UberParser import UberParser
-
 
 FEEDS = {
     'Facebook': FeedParser,

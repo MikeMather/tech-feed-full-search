@@ -11,6 +11,7 @@ def search(request):
         vector_result = Post.objects.filter(search_vector=query).values('id', 'title', 'description', 'url')
         print(f'title result: {len(title_result)}. vector result: {len(vector_result)}')
         result = list(title_result) + list(vector_result)
+        result = list(set(result))
         return JsonResponse(result, safe=False)
     else:
         response = {'message': 'Expected query parameters'}
