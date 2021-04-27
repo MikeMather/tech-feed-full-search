@@ -6,7 +6,9 @@ const Result = ({ result }: { result: ResultType }) => {
 
     return (
         <ResultContainer>
-            <h2>{result.title}</h2>
+            <a href={result.url}>{result.title}</a>
+            <span>{result.feed__name}</span>
+            <p dangerouslySetInnerHTML={{ __html: result.description }}></p>
         </ResultContainer>
     )
 };

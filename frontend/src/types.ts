@@ -4,4 +4,5 @@ export interface ResultType {
     title: string;
     description: string;
     url: string;
+    feed__name: string;
 }
