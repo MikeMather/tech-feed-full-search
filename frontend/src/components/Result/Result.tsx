@@ -5,7 +5,9 @@ import { ResultContainer } from './styles';
 const Result = ({ result }: { result: ResultType }) => {
 
     return (
-        <ResultContainer>{result.title}</ResultContainer>
+        <ResultContainer>
+            <h2>{result.title}</h2>
+        </ResultContainer>
     )
 };
 

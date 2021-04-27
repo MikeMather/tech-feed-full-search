@@ -5,6 +5,7 @@ import { api } from '../../api/Api';
 import { AppContainer } from '../styles';
 import Result from '../Result/Result';
 import ArrowRight from '../icons/ArrowRight';
+import Loader from '../Loader';
 
 
 const Search = () => {
@@ -13,16 +14,19 @@ const Search = () => {
     const [hasSearched, setHasSearched] = useState(false);
     const [search, setSearch] = useState('')
     const [results, setResults] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const query = params.get('query');
 
         if (query) {
+            setLoading(true);
             setHasSearched(true);
             setSearch(query);
             setResults([])
             api.search(query).then(res => {
+                setLoading(false);
                 setResults(res);
             });
         }
@@ -43,7 +47,8 @@ const Search = () => {
                     <SearchButton type="submit"><ArrowRight /></SearchButton>
                 </SearchForm>
             </SearchContainer>
-            {results && results.map((post: any) => (
+            {loading && <Loader />}
+            {(results && !loading ) && results.map((post: any) => (
                 <Result key={post.id} result={post} />
             ))}
         </AppContainer>
