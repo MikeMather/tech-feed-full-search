@@ -19,6 +19,6 @@ def search(request):
         return JsonResponse(response, safe=False)
 
 def feed(request):
-    feed = Post.objects.all().order_by('-created_at')[:30]
+    feed = Post.objects.all().values('id', 'title', 'description', 'url', 'feed__name', 'created_at').order_by('-created_at')[:30]
     feed = list(feed)
     return JsonResponse(feed, safe=False)

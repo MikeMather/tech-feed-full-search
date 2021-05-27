@@ -30,6 +30,14 @@ const Search = () => {
                 setResults(res);
             });
         }
+        else {
+            setLoading(true);
+            setResults([])
+            api.feed().then(res => {
+                setLoading(false);
+                setResults(res);
+            });
+        }
         
     }, [location])
 
