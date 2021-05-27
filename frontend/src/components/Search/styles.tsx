@@ -13,9 +13,10 @@ export const SearchContainer = styled.div<SearchProps>`
     transition: all 1s cubic-bezier(0.22, 0.61, 0.36, 1);
     display: flex;
     justify-content: center;
+    max-width: 600px;
 
     input {
-        width: 100%;
+        width: 90%;
         border: none;
         padding: 20px;
         box-shadow: ${props => props.hasValue ? '3px 3px 16px hsl(0deg 0% 0% / 20%)' : '10px 10px 55px hsl(0deg 0% 0% / 20%)'};
@@ -28,13 +29,22 @@ export const SearchContainer = styled.div<SearchProps>`
     }
 `
 
+export const ResultsContainer = styled.div`
+    margin: auto;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
 export const SearchForm = styled.form`
     position: relative;
     width: 80%;
 
     > button {
         position: absolute;
-        right: 0;
+        right: 10%;
         top: 50%;
         transform: translate(50%, -50%);
     }

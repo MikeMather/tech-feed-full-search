@@ -17,3 +17,8 @@ def search(request):
     else:
         response = {'message': 'Expected query parameters'}
         return JsonResponse(response, safe=False)
+
+def feed(request):
+    feed = Post.objects.all().order_by('-created_at')[:30]
+    feed = list(feed)
+    return JsonResponse(feed, safe=False)

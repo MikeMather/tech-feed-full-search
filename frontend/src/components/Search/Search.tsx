@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { SearchButton, SearchContainer, SearchForm } from './styles';
+import { ResultsContainer, SearchButton, SearchContainer, SearchForm } from './styles';
 import { api } from '../../api/Api';
 import { AppContainer } from '../styles';
 import Result from '../Result/Result';
@@ -47,10 +47,12 @@ const Search = () => {
                     <SearchButton type="submit"><ArrowRight /></SearchButton>
                 </SearchForm>
             </SearchContainer>
-            {loading && <Loader />}
-            {(results && !loading ) && results.map((post: any) => (
-                <Result key={post.id} result={post} />
-            ))}
+            <ResultsContainer>
+                {loading && <Loader />}
+                {(results && !loading ) && results.map((post: any) => (
+                    <Result key={post.id} result={post} />
+                ))}
+            </ResultsContainer>
         </AppContainer>
     )
 }

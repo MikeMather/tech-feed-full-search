@@ -1,15 +1,20 @@
 import React from 'react';
 import { ResultType } from '../../types';
-import { ResultContainer } from './styles';
+import Res from './styles';
 
 const Result = ({ result }: { result: ResultType }) => {
 
+    const imgUrl = `img/${result.feed__name.split(' ').join('').toLowerCase()}.png`;
+
     return (
-        <ResultContainer>
-            <a href={result.url}>{result.title}</a>
-            <span>{result.feed__name}</span>
-            <p dangerouslySetInnerHTML={{ __html: result.description }}></p>
-        </ResultContainer>
+        <Res.LinkContainer href={result.url} target="_blank">
+            <Res.Container>
+                <img alt={`${result.feed__name} logo`} src={imgUrl} width={60} />
+                <Res.Title>{result.title}</Res.Title>
+                <Res.Subtitle>{result.feed__name}</Res.Subtitle>
+                <Res.Description dangerouslySetInnerHTML={{ __html: result.description }}></Res.Description>
+            </Res.Container>
+        </Res.LinkContainer>
     )
 };
 
