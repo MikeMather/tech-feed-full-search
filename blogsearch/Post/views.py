@@ -14,8 +14,10 @@ def search(request):
             .values('id', 'title', 'description', 'url', 'feed__name', 'created_at') \
             .order_by('-created_at')
         print(f'title result: {len(title_result)}. vector result: {len(vector_result)}')
-        result = list(title_result) + list(vector_result)
-        result = [dict(x) for x in {tuple(d.items()) for d in result}]
+        #result = list(title_result) + list(vector_result)
+        title_ids = [title['id'] for title in title_result]
+        unique_vector_result = [result for result in vector_result if result['id'] not in title_ids]
+        result = list(title_result) + list(unique_vector_result)
         return JsonResponse(result, safe=False)
     else:
         response = {'message': 'Expected query parameters'}
