@@ -10,8 +10,8 @@ def search(request):
         title_result = Post.objects.filter(title__icontains=query).values('id', 'title', 'description', 'url', 'feed__name', 'created_at')
         vector_result = Post.objects.filter(search_vector=query).values('id', 'title', 'description', 'url', 'feed__name', 'created_at')
         print(f'title result: {len(title_result)}. vector result: {len(vector_result)}')
-        result = title_result | vector_result
-        result = result.distinct().order_by('-created_at')
+        result = title_result.order_by('-created_at') | vector_result.order_by('-created_at')
+        result = result.distinct()
         result = list(result)
         return JsonResponse(result, safe=False)
     else:
