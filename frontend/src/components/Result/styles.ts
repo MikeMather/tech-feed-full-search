@@ -4,7 +4,7 @@ const Container = styled.div`
     border-radius: 4px;
     padding: 25px;
     border: 1px solid #e6ebec;
-    margin: 30px 0;
+    margin: 20px 0;
     background-color: white;
     text-align: left;
 `;
@@ -35,12 +35,29 @@ const Description = styled.p`
     margin-top: 25px;
 `;
 
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Logo = styled.div<{ url: string}>`
+    width: 90px;
+    height: 60px;
+    background-image: url(${props => props.url});
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+`;
+
 const Result = {
     Container,
     Title,
     Subtitle,
     Description,
-    LinkContainer
+    LinkContainer,
+    Logo,
+    Header
 }
 
 export default Result;

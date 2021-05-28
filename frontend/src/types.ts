@@ -5,4 +5,5 @@ export interface ResultType {
     description: string;
     url: string;
     feed__name: string;
+    created_at: string;
 }

@@ -6,14 +6,15 @@ import { AppContainer } from '../styles';
 import Result from '../Result/Result';
 import ArrowRight from '../icons/ArrowRight';
 import Loader from '../Loader';
+import { ResultType } from '../../types';
 
 
 const Search = () => {
     const history = useHistory();
     const location = useLocation();
-    const [hasSearched, setHasSearched] = useState(false);
+    const [hasSearched, setHasSearched] = useState(true);
     const [search, setSearch] = useState('')
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<ResultType[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -22,10 +23,9 @@ const Search = () => {
 
         if (query) {
             setLoading(true);
-            setHasSearched(true);
             setSearch(query);
             setResults([])
-            api.search(query).then(res => {
+            api.search(query).then((res: ResultType[]) => {
                 setLoading(false);
                 setResults(res);
             });
@@ -33,7 +33,7 @@ const Search = () => {
         else {
             setLoading(true);
             setResults([])
-            api.feed().then(res => {
+            api.feed().then((res: ResultType[]) => {
                 setLoading(false);
                 setResults(res);
             });
@@ -51,7 +51,7 @@ const Search = () => {
         <AppContainer>
             <SearchContainer hasValue={hasSearched}>
                 <SearchForm onSubmit={onSubmit}>
-                    <input name="query" type="text" onChange={e => setSearch(e.target.value)} value={search} />
+                    <input name="query" type="text" placeholder="Search tech posts" onChange={e => setSearch(e.target.value)} value={search} />
                     <SearchButton type="submit"><ArrowRight /></SearchButton>
                 </SearchForm>
             </SearchContainer>
