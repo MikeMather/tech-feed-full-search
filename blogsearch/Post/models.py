@@ -18,6 +18,7 @@ class Post(models.Model):
     class Meta:
         db_table = 'posts'
         indexes = (GinIndex(fields=["search_vector"]),)
+        ordering = ['-created_at']
 
     def __str__(self):
         return f'{self.feed.name} - {self.title}'
