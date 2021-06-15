@@ -30,7 +30,7 @@ export const SearchContainer = styled.div<SearchProps>`
 `
 
 export const ResultsContainer = styled.div`
-    margin: 50px auto;
+    margin: 30px auto;
     max-width: 600px;
     display: flex;
     flex-direction: column;

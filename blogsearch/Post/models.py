@@ -12,6 +12,7 @@ class Post(models.Model):
     description = models.TextField(blank=True)
     content = models.TextField(blank=True)
     search_vector = SearchVectorField(null=True)
+    hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
