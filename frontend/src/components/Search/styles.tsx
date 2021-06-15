@@ -6,11 +6,6 @@ interface SearchProps {
 
 export const SearchContainer = styled.div<SearchProps>`
     width: 80%;
-    position: absolute;
-    top: ${props => props.hasValue ? '10%' : '50%'};
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: all 1s cubic-bezier(0.22, 0.61, 0.36, 1);
     display: flex;
     justify-content: center;
     max-width: 600px;
@@ -36,6 +31,7 @@ export const ResultsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 300px;
 `;
 
 export const SearchForm = styled.form`
