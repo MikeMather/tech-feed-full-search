@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Post.views import search, feed
+from django.http import HttpResponse
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('feed/', feed),
-    path('search/', search)
+    path('search/', search),
+    path('health-check/', lambda r: HttpResponse('OK'))
 ]
