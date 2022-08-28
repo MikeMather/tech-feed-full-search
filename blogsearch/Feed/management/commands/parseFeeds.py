@@ -7,16 +7,15 @@ from parsers.RiotGamesParser import RiotGamesParser
 
 FEEDS = {
     'Facebook': FeedParser,
-    'Spotify': SpotifyParser,
+    'Google Research': ContentAsDescriptionParser,
+    # 'Spotify': SpotifyParser,
     'Netflix': FeedParser,
     'AirBnB': ContentAsDescriptionParser,
-    'Asana': FeedParser,
     'BBC': ContentAsDescriptionParser,
     'CloudFlare': FeedParser,
     'Dropbox': ContentAsDescriptionParser,
     'GitHub': FeedParser,
     'Google Security': ContentAsDescriptionParser,
-    'Google Research': ContentAsDescriptionParser,
     'Grab': SummaryAsContentParser,
     'Instagram': ContentAsDescriptionParser,
     'Intuit': ContentAsDescriptionParser,
@@ -28,18 +27,19 @@ FEEDS = {
     'SkyScanner': ContentAsDescriptionParser,
     'SoundCloud': ContentAsDescriptionParser,
     'Twitch': ContentAsDescriptionParser,
-    'Asana': FeedParser
+    'Reddit': ContentAsDescriptionParser,
+    'Expedia': ContentAsDescriptionParser,
 }
 
 class Command(BaseCommand):
     help = 'Runs the feed parsers'
 
     def handle(self, *args, **options):
-        for name, parser in FEEDS.items():
-            try:
-                feed = Feed.objects.get(name=name)
-                runner = parser(feed.id)
-                runner.parse_feed()
-            except Exception as e:
-                print(e)
-                print(f'Error parsing {name} feed')
+        for name, Parser in FEEDS.items():
+            # try:
+            feed = Feed.objects.get(name=name)
+            runner = Parser(feed.id)
+            runner.parse_feed()
+            # except Exception as e:
+            #     print(e)
+            #     print(f'Error parsing {name} feed')

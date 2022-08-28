@@ -9,10 +9,12 @@ class Post(models.Model):
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE, related_name='posts')
     url = models.URLField(blank=True)
     title = models.CharField(max_length=500, blank=True)
+    image = models.URLField(blank=True, max_length=500)
     description = models.TextField(blank=True)
     content = models.TextField(blank=True)
     search_vector = SearchVectorField(null=True)
     hidden = models.BooleanField(default=False)
+    published_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

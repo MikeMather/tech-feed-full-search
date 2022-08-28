@@ -3,6 +3,7 @@ import feedparser
 from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
 from Post.models import Post
+import requests
 
 class FeedParser(ABC):
 
@@ -11,9 +12,18 @@ class FeedParser(ABC):
 
     def __init__(self, feed_id):
         self.feed = Feed.objects.get(pk=feed_id)
-        self.recent_posts = self.feed.posts.all().order_by('-created_at')[:10]
+        print('Parsing feed: ', self.feed.name)
         feed_content = feedparser.parse(self.feed.url)
-        self.entries = feed_content.entries
+        self.entries = self.get_recent_entries(feed_content.entries)
+        print(f'Found {len(self.entries)} new entries')
+
+
+    def get_recent_entries(self, entries):
+        existing_posts = list(Post.objects.filter(feed=self.feed).values_list('url', flat=True)[:20].all())
+        if existing_posts:
+            recent_entries = list(filter(lambda entry: entry.link not in existing_posts, entries))
+            return recent_entries
+        return []
 
     def get_link(self, entry):
         return entry.link
@@ -32,6 +42,19 @@ class FeedParser(ABC):
         if len(description) > 250:
             description = description[:250] + '...'
         return description
+    
+    def get_og_props(self, entry):
+        image = ''
+        date_published = None
+        r = requests.get(entry.link)
+        soup = BeautifulSoup(r.text, features="html.parser")
+        og_image = soup.find("meta", property="og:image")
+        if og_image and 'content' in og_image.attrs:
+            image = og_image['content']
+        og_date_published = soup.find("meta", property="article:published_time")
+        if og_date_published and 'content' in og_date_published.attrs:
+            date_published = og_date_published['content']
+        return [image, date_published]
 
     def parse_feed(self):
         for entry in self.entries:
@@ -41,6 +64,7 @@ class FeedParser(ABC):
             title = self.get_title(entry)
             content = self.get_content(entry)
             description = self.get_description(entry)
+            image, date_published = self.get_og_props(entry)
 
             existing_post = Post.objects.filter(url=link).count()
             if not existing_post:
