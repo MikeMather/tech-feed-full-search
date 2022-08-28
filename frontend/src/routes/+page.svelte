@@ -1,8 +1,19 @@
 <script lang="ts">
   import type { PageData } from "@sveltejs/kit/types/internal";
+  import Hero from "../components/Hero.svelte";
+  import type { Post as IPost } from "src/types";
+  import { onMount } from "svelte";
+  import PostList from "../components/PostList.svelte";
 
-  export let data: PageData & { feed: any };
+  export let data: PageData & { feed: IPost[] };
+  const featured = data.feed.slice(0, 3);
+  const posts = data.feed.slice(3);
+  onMount(async () => {
+    const flamethrower = await import('flamethrower-router');
+    const router = flamethrower.default();
+  })
 </script>
 
-<h1>Welcome to SvelteKit {JSON.stringify(data.feed[0])}</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+<Hero featuredPosts={featured} />
+<PostList posts={posts} />

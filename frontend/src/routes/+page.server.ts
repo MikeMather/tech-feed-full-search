@@ -1,8 +1,11 @@
+import Api from "../utils/Api";
+import { routes } from "../utils/routes";
+
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
   
-  const feed = await fetch('https://tech-feed-api.onrender.com/feed').then(res => res.json());
+  const feed = await Api.get(routes.feed);
   return {
-    feed
+    feed: Object.values(feed)
   };
 }

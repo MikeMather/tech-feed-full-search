@@ -1,0 +1,16 @@
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  margin: 0;
+}
+
+:root {
+  --background-color: rgb(23, 21, 21);
+  --background-color-alt: #22232a;
+  --text-color: #bdc8d3d8;
+  --text-color-light: #7d7575;
+  --link-color: #463e79;
+  --font-family: 'Open Sans', sans-serif;
+}
