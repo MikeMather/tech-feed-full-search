@@ -19,9 +19,13 @@ class Command(BaseCommand):
                         endpoint_url='https://nyc3.digitaloceanspaces.com',
                         aws_access_key_id=os.environ.get('SPACES_ACCESS_KEY'),
                         aws_secret_access_key=os.environ.get('SPACES_SECRET_ACCESS_KEY'))
-      posts = Post.objects.exclude(image__startswith='https://tech-feed.nyc').order_by('-created_at')
+      posts = Post.objects.filter(image='').order_by('-created_at')
       for post in posts:
-        word_cloud = WordCloud(collocations=False, background_color='#171515', stopwords=STOPWORDS).generate(post.content)
+        print(f'Creating word cloud for {post.title}')
+        word_cloud = WordCloud(collocations=False, \
+          background_color='#171515', \
+          stopwords=STOPWORDS, \
+          width=1920, height=1080).generate(post.content)
         plt.imshow(word_cloud, interpolation='bilinear')
         plt.axis("off")
         plt.rcParams['savefig.facecolor']='#171515'

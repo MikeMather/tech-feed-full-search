@@ -36,6 +36,8 @@ class FeedParser(ABC):
         content = soup.get_text()
         return content
 
+
+
     def get_description(self, entry):
         soup = BeautifulSoup(entry.summary, features='html.parser')
         description = soup.get_text()
@@ -44,17 +46,13 @@ class FeedParser(ABC):
         return description
     
     def get_og_props(self, entry):
-        image = ''
         date_published = None
         r = requests.get(entry.link)
         soup = BeautifulSoup(r.text, features="html.parser")
-        og_image = soup.find("meta", property="og:image")
-        if og_image and 'content' in og_image.attrs:
-            image = og_image['content']
         og_date_published = soup.find("meta", property="article:published_time")
         if og_date_published and 'content' in og_date_published.attrs:
             date_published = og_date_published['content']
-        return [image, date_published]
+        return date_published
 
     def parse_feed(self):
         for entry in self.entries:
@@ -64,7 +62,7 @@ class FeedParser(ABC):
             title = self.get_title(entry)
             content = self.get_content(entry)
             description = self.get_description(entry)
-            image, date_published = self.get_og_props(entry)
+            date_published = self.get_og_props(entry)
 
             existing_post = Post.objects.filter(url=link).count()
             if not existing_post:
@@ -72,6 +70,7 @@ class FeedParser(ABC):
                                             url=link,
                                             title=title,
                                             description=description,
+                                            published_at=date_published,
                                             content=content)
                 print('New post: ', post.id)
 
