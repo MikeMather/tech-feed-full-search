@@ -8,7 +8,6 @@
 <div class="section">
   <div class="container">
     <div class="main">
-      <h5>Top</h5>
       <FeaturedPost post={featuredPosts[0]} isMain />
     </div>
     <div class="side">
@@ -35,6 +34,8 @@
 
   .section {
     margin: auto;
+    padding: 0;
+    max-width: 1200px;
   }
 
   @media (min-width: 600px) {
@@ -65,7 +66,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    margin-top: 20px;
     flex: 1;
   }
 </style>

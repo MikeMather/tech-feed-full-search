@@ -1,8 +1,17 @@
+<script lang="ts">
+import { goto } from '$app/navigation';
 
+  const submit = (e: any) => {
+    console.log('Value: ', e.target.searchVal.value);
+    goto(`/search?q=${e.target.searchVal.value}`);
+  }
+</script>
 
 <nav>
   <p>Logo</p>
-  <input type="text" placeholder="Search over 2,000 posts" />
+  <form on:submit|preventDefault={submit}>
+    <input type="text" name="searchVal" placeholder="Search over 2,000 posts" />
+  </form>
 </nav>
 
 <style>
@@ -18,16 +27,17 @@
   }
 
   input {
-    padding: 12px;
+    padding: 12px 18px;
     border: 0;
     border-radius: 30px;
     width: 300px;
     outline: none;
     background-color: #434b56;
     color: var(--text-color);
+    box-sizing: border-box;
   }
 
   input::placeholder {
-    color: var(--text-color-light);
+    color: #989898;
   }
 </style>

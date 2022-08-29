@@ -2,6 +2,7 @@
   import type { Post } from "src/types";
 import { formatPublishedAt } from "../utils/dateUtils";
   import Author from "./Author.svelte";
+import Timestamp from "./Timestamp.svelte";
 
   export let post: Post;
 </script>
@@ -15,7 +16,7 @@ import { formatPublishedAt } from "../utils/dateUtils";
       <div class="title">
         <Author feedName={post.feedName} />
         <h1>{post.title}</h1>
-        <time datetime={post.publishedAt || post.createdAt}>{formatPublishedAt(post.publishedAt || post.createdAt)}</time>
+        <Timestamp timestamp={post.publishedAt || post.createdAt} />
       </div>
   </article>
 </a>
@@ -30,7 +31,7 @@ import { formatPublishedAt } from "../utils/dateUtils";
     align-items: center;
     flex-wrap: wrap;
     box-sizing: border-box;
-    margin-bottom: 35px;
+    margin: 0 auto 35px auto;
   }
 
   a {
@@ -39,11 +40,19 @@ import { formatPublishedAt } from "../utils/dateUtils";
     position: relative;
   }
 
+  .title {
+    width: 260px;
+  }
+
+  picture {
+    width: 280px;
+    max-width: 280px;
+    min-width: 280px;
+    margin-right: 15px;
+  }
 
   img {
     width: 100%;
-    max-width: 280px;
-    margin-right: 15px;
     border-radius: 5px;
   }
 
@@ -51,18 +60,26 @@ import { formatPublishedAt } from "../utils/dateUtils";
     margin: 0;
     font-size: 1.5rem;
     margin-bottom: 8px;
-    max-width: 300px;
+    max-width: 370px;
   }
 
   @media (min-width: 768px) {
     h1 {
       max-width: 500px;
     }
+
+    .title {
+      width: 50%;
+    }
   }
 
-  time {
-    font-size: 0.8rem;
-    color: var(--text-color-light);
-    margin-top: 15px;
+  @media (max-width: 425px) {
+    article {
+      justify-content: center;
+    }
+
+    picture {
+      margin: 0;
+    }
   }
 </style>

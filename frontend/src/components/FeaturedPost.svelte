@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Post } from "src/types";
 import Author from "./Author.svelte";
+import Timestamp from "./Timestamp.svelte";
 
   export let isMain: boolean = false;
   export let post: Post;
@@ -14,6 +15,7 @@ import Author from "./Author.svelte";
     </picture>
     <Author feedName={post.feedName} small={!isMain} />
     <h1>{post.title}</h1>
+    <Timestamp timestamp={post.publishedAt || post.createdAt} />
   </div>
 </a>
 
@@ -22,6 +24,7 @@ import Author from "./Author.svelte";
     text-decoration: none;
     color: var(--text-color);
     flex: 1;
+    margin-bottom: 20px;
   }
 
   picture {
@@ -35,6 +38,7 @@ import Author from "./Author.svelte";
   h1 {
     margin: 0;
     font-size: 1rem;
+    min-width: 200px;
   }
 
   .isMain h1 {
@@ -46,7 +50,6 @@ import Author from "./Author.svelte";
     box-sizing: border-box;
     background-color: var(--background-color-alt);
     border-radius: 10px;
-    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,5 +77,6 @@ import Author from "./Author.svelte";
 
   .isMain.container {
     margin: 0;
+    min-width: 420px;
   }
 </style>
