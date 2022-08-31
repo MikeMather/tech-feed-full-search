@@ -1,7 +1,5 @@
 <script>
 import Nav from "../components/Nav.svelte";
-export const ssr = true;
-
 </script>
 <style>
   main {

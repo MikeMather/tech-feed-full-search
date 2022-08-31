@@ -5,7 +5,7 @@
   import { goto } from '$app/navigation';
   import { routes } from "../../utils/routes";
 
-  type SearchResults = IPost & { headline: string}[]
+  export const prerender = false;
 
   export let data: PageData & { 
     results: IPost[]

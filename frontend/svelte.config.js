@@ -7,22 +7,20 @@ const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
 	preprocess: preprocess(),
-
   kit: {
     adapter: adapter({
       // default options are shown. On some platforms
       // these options are set automatically — see below
       pages: 'build',
       assets: 'build',
-      fallback: 'index.html',
-      precompress: true
+      fallback: null,
+      precompress: false
     }),
-
     prerender: {
-      // This can be false if you're using a fallback (i.e. SPA mode)
-      enabled: true,
-      entries: []
-    }
+      default: true,
+      entries: ['/']
+    },
+    trailingSlash: 'always'
   }
 };
 

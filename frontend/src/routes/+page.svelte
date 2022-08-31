@@ -6,7 +6,7 @@
   import PostList from "../components/PostList.svelte";
 
   export let data: PageData & { feed: IPost[] };
-  // const featured = data.feed.slice(0, 3);
+  // @ts-ignore
   const posts = data.feed.slice(3);
   onMount(async () => {
     const flamethrower = await import('flamethrower-router');
@@ -15,5 +15,4 @@
 </script>
 
 
-<!-- <Hero featuredPosts={featured} /> -->
 <PostList posts={data.feed} />
