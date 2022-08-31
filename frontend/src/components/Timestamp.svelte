@@ -9,7 +9,7 @@ export let timestamp: string;
 
 <style>
   time {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     color: var(--text-color-light);
     margin-top: 15px;
   }

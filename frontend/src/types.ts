@@ -8,4 +8,5 @@ export type Post = {
   publishedAt: string;
   feedName: string;
   createdAt: string;
+  headline?: string;
 }

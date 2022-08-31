@@ -14,3 +14,8 @@ body {
   --link-color: #463e79;
   --font-family: 'Open Sans', sans-serif;
 }
+
+.headline {
+  font-weight: bolder;
+  text-decoration: underline;
+}

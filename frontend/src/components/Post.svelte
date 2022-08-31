@@ -16,6 +16,9 @@ import Timestamp from "./Timestamp.svelte";
       <div class="title">
         <Author feedName={post.feedName} />
         <h1>{post.title}</h1>
+        {#if post.headline}
+          <div class="headlines">{@html post.headline}...</div>        
+        {/if}
         <Timestamp timestamp={post.publishedAt || post.createdAt} />
       </div>
   </article>
@@ -61,6 +64,12 @@ import Timestamp from "./Timestamp.svelte";
     font-size: 1.5rem;
     margin-bottom: 8px;
     max-width: 370px;
+  }
+
+  .headlines {
+    font-size: 0.8rem;
+    color: #666882;
+    margin-bottom: 8px;
   }
 
   @media (min-width: 768px) {

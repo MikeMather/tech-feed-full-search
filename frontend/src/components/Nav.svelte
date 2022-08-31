@@ -1,9 +1,9 @@
 <script lang="ts">
-import { goto } from '$app/navigation';
+  import { goto } from '$app/navigation';
+  import { routes } from '../utils/routes';
 
   const submit = (e: any) => {
-    console.log('Value: ', e.target.searchVal.value);
-    goto(`/search?q=${e.target.searchVal.value}`);
+    goto(`${routes.search}?q=${e.target.searchVal.value}`);
   }
 </script>
 
