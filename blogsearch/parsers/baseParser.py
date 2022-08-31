@@ -20,10 +20,8 @@ class FeedParser(ABC):
 
     def get_recent_entries(self, entries):
         existing_posts = list(Post.objects.filter(feed=self.feed).values_list('url', flat=True)[:20].all())
-        if existing_posts:
-            recent_entries = list(filter(lambda entry: entry.link not in existing_posts, entries))
-            return recent_entries
-        return []
+        recent_entries = list(filter(lambda entry: entry.link not in existing_posts, entries))
+        return recent_entries
 
     def get_link(self, entry):
         return entry.link
@@ -35,8 +33,6 @@ class FeedParser(ABC):
         soup = BeautifulSoup(entry.content[0].value, features='html.parser')
         content = soup.get_text()
         return content
-
-
 
     def get_description(self, entry):
         soup = BeautifulSoup(entry.summary, features='html.parser')

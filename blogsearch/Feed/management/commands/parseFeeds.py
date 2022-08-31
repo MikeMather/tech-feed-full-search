@@ -29,12 +29,23 @@ FEEDS = {
     'Twitch': ContentAsDescriptionParser,
     'Reddit': ContentAsDescriptionParser,
     'Expedia': ContentAsDescriptionParser,
+    'Slack': FeedParser
 }
 
 class Command(BaseCommand):
     help = 'Runs the feed parsers'
 
+    def add_arguments(self, parser):
+        parser.add_argument('feed', nargs='+', type=str)
+
     def handle(self, *args, **options):
+        if options['feed']:
+            name = options['feed'][0]
+            feed = Feed.objects.get(name=name)
+            Parser = FEEDS[name]
+            parser = Parser(feed.id)
+            parser.parse_feed()
+            return
         for name, Parser in FEEDS.items():
             # try:
             feed = Feed.objects.get(name=name)
